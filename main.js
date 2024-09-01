@@ -3,8 +3,8 @@ let score = 0; //current Score
 let highestScore = localStorage.getItem(`HS`);
 // Print Scores
 displayContainer.innerHTML = `<h2>Current Score : ${score}  ||  Highest  Score : ${highestScore}</h2>`;
-// Snake Head
-let snakePointer = document.getElementById("snakeHead");
+// ghost Head
+let ghostPointer = document.getElementById("ghostHead");
 
 // counter
 let l = 0; //left
@@ -15,18 +15,26 @@ let step = 10; // Step
 // Generate Coins
 function generateCoinsBoms() {
     // generate Rundom Num between 0 to  100 and are divided by 5
+    // Coins
     x = Math.floor(Math.random() * 11) * 10;
     y = Math.floor(Math.random() * 11) * 10;
-    // coin cordanates
+    // bombs
+    z = Math.floor(Math.random() * 11) * 10;
+    w = Math.floor(Math.random() * 11) * 10;
+    // coin coordinates
     coin.style.left = `${x}%`;
     coin.style.top = `${y}%`;
     coin.style.transform = `translate(-${x}%,-${y}%)`;
-    // generateCoinsBomsBoms
-    boms.style.left = `${100 - x}%`;
-    boms.style.top = `${100 - y}%`;
-    boms.style.transform = `translate(-${100 - x}%,-${100 - y}%)`;
+    // Boms coordinates
+    boms.style.left = `${z}%`;
+    boms.style.top = `${w}%`;
+    boms.style.transform = `translate(-${z}%,-${w}%)`;
 }
+// To make sure bombs and coins can not be at the same coordinates
 generateCoinsBoms();
+if (x == z || y == w) {
+    generateCoinsBoms();
+}
 
 // update Score
 function updateScore() {
@@ -45,8 +53,8 @@ addEventListener("keyup", (i) => {
             return;
         } else {
             l -= step;
-            snakePointer.style.left = `${l}%`;
-            snakePointer.style.transform = `translate(-${l}%,-${t}%)`;
+            ghostPointer.style.left = `${l}%`;
+            ghostPointer.style.transform = `translate(-${l}%,-${t}%)`;
             console.log(l);
         }
     }
@@ -56,8 +64,8 @@ addEventListener("keyup", (i) => {
             return;
         } else {
             t -= step;
-            snakePointer.style.top = `${t}%`;
-            snakePointer.style.transform = `translate(-${l}%,-${t}%)`;
+            ghostPointer.style.top = `${t}%`;
+            ghostPointer.style.transform = `translate(-${l}%,-${t}%)`;
             console.log(t);
         }
     }
@@ -67,8 +75,8 @@ addEventListener("keyup", (i) => {
             return;
         } else {
             l += step;
-            snakePointer.style.left = `${l}%`;
-            snakePointer.style.transform = `translate(-${l}%,-${t}%)`;
+            ghostPointer.style.left = `${l}%`;
+            ghostPointer.style.transform = `translate(-${l}%,-${t}%)`;
             console.log(l);
         }
     }
@@ -78,8 +86,8 @@ addEventListener("keyup", (i) => {
             return;
         } else {
             t += step;
-            snakePointer.style.top = `${t}%`;
-            snakePointer.style.transform = `translate(-${l}%,-${t}%)`;
+            ghostPointer.style.top = `${t}%`;
+            ghostPointer.style.transform = `translate(-${l}%,-${t}%)`;
             console.log(t);
         }
     }
@@ -87,11 +95,11 @@ addEventListener("keyup", (i) => {
         generateCoinsBoms();
         updateScore();
     }
-    if (t == 100 - y && l == 100 - x) {
+    if (t == w && l == z) {
         l = t = 0;
-        snakePointer.style.top = `0%`;
-        snakePointer.style.left = `0%`;
-        snakePointer.style.transform = `translate(0%,0%)`;
+        ghostPointer.style.top = `0%`;
+        ghostPointer.style.left = `0%`;
+        ghostPointer.style.transform = `translate(0%,0%)`;
         generateCoinsBoms();
         score = 0;
         displayContainer.innerHTML = `<h2>Current Score : ${score}  ||  Highest  Score : ${highestScore}</h2>`;
