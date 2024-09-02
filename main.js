@@ -1,8 +1,14 @@
 // Storage
 let score = 0; //current Score
 let highestScore = localStorage.getItem(`HS`);
+// check if there is high score or not highestScore = 0
+if (highestScore == null) {
+    highestScore = 0;
+}
+
 // Print Scores
-displayContainer.innerHTML = `<h2>Current Score : 0  ||  Highest  Score : 0</h2>`;
+displayContainer.innerHTML = `<h2>Current Score : 0  ||  Highest  Score : ${highestScore}</h2>`;
+
 // ghost Head
 let ghostPointer = document.getElementById("ghostHead");
 
@@ -30,8 +36,8 @@ function generateCoinsBoms() {
     boms.style.top = `${w}%`;
     boms.style.transform = `translate(-${z}%,-${w}%)`;
 }
-// To make sure bombs and coins can not be at the same coordinates
 generateCoinsBoms();
+// To make sure bombs and coins can not be at the same coordinates
 if (x == z || y == w) {
     generateCoinsBoms();
 }
