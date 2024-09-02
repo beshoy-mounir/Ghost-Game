@@ -2,7 +2,7 @@
 let score = 0; //current Score
 let highestScore = localStorage.getItem(`HS`);
 // Print Scores
-displayContainer.innerHTML = `<h2>Current Score : ${score}  ||  Highest  Score : ${highestScore}</h2>`;
+displayContainer.innerHTML = `<h2>Current Score : 0  ||  Highest  Score : 0</h2>`;
 // ghost Head
 let ghostPointer = document.getElementById("ghostHead");
 
