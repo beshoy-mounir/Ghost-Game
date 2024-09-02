@@ -52,6 +52,22 @@ function updateScore() {
     displayContainer.innerHTML = `<h2>Current Score : ${score}  ||  Highest  Score : ${highestScore}</h2>`;
 }
 
+function coordinates() {
+    if (t == y && l == x) {
+        generateCoinsBoms();
+        updateScore();
+    }
+    if (t == w && l == z) {
+        l = t = 0;
+        ghostPointer.style.top = `0%`;
+        ghostPointer.style.left = `0%`;
+        ghostPointer.style.transform = `translate(0%,0%)`;
+        generateCoinsBoms();
+        score = 0;
+        displayContainer.innerHTML = `<h2>Current Score : ${score}  ||  Highest  Score : ${highestScore}</h2>`;
+    }
+}
+
 addEventListener("keyup", (i) => {
     // left
     if (i.keyCode === 37) {
@@ -97,17 +113,51 @@ addEventListener("keyup", (i) => {
             console.log(t);
         }
     }
-    if (t == y && l == x) {
-        generateCoinsBoms();
-        updateScore();
+    coordinates();
+});
+
+// Mobile controls
+left.addEventListener("click", () => {
+    if (l == 0) {
+        return;
+    } else {
+        l -= step;
+        ghostPointer.style.left = `${l}%`;
+        ghostPointer.style.transform = `translate(-${l}%,-${t}%)`;
+        console.log(l);
+        coordinates();
     }
-    if (t == w && l == z) {
-        l = t = 0;
-        ghostPointer.style.top = `0%`;
-        ghostPointer.style.left = `0%`;
-        ghostPointer.style.transform = `translate(0%,0%)`;
-        generateCoinsBoms();
-        score = 0;
-        displayContainer.innerHTML = `<h2>Current Score : ${score}  ||  Highest  Score : ${highestScore}</h2>`;
+});
+right.addEventListener("click", () => {
+    if (l == 100) {
+        return;
+    } else {
+        l += step;
+        ghostPointer.style.left = `${l}%`;
+        ghostPointer.style.transform = `translate(-${l}%,-${t}%)`;
+        console.log(l);
+        coordinates();
+    }
+});
+up.addEventListener("click", () => {
+    if (t == 0) {
+        return;
+    } else {
+        t -= step;
+        ghostPointer.style.top = `${t}%`;
+        ghostPointer.style.transform = `translate(-${l}%,-${t}%)`;
+        console.log(t);
+        coordinates();
+    }
+});
+down.addEventListener("click", () => {
+    if (t == 100) {
+        return;
+    } else {
+        t += step;
+        ghostPointer.style.top = `${t}%`;
+        ghostPointer.style.transform = `translate(-${l}%,-${t}%)`;
+        console.log(t);
+        coordinates();
     }
 });
